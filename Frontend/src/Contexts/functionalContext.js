@@ -3,7 +3,7 @@ const AppContext = React.createContext()
 
 const AppProvider = ({children})=>{
     // states
-    const [loading,setLoading] = useState(false)
+
     const [cart,setCart] = useState([])
     const [checkedOut,setCheckedOut] = useState(false)
     // const [page,setPage] = useState("")

@@ -2,14 +2,17 @@ import React,{useState,useEffect} from 'react';
 import { db } from "../firebase-config";
 import { collection,getDocs } from "firebase/firestore";
 import MenuItem from "../Components/MenuItem"
-import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
+import  { isWidthUp } from '@material-ui/core/withWidth';
 import { ImageListItem,ImageList } from '@material-ui/core';
 import {useGlobalContext} from "../Contexts/functionalContext"
+import TextField from '@mui/material/TextField';
+
+
 function Menu(props) {
     
     const [items,setItems] = useState([])
     const itemsCollectionRef = collection(db,"items")
-    const {cart,fetchData} = useGlobalContext()
+    const {search,setSearch,fetchData} = useGlobalContext()
     useEffect(()=>{
       // check if u got table no; if dh then u kena kick
       if(localStorage.getItem("tableNum") == null){
@@ -42,21 +45,25 @@ function Menu(props) {
           return 3;
         }
     
-        if (isWidthUp('md')) {
-          return 2;
-        }
+        // if (isWidthUp('md')) {
+        //   return 2;
+        // }
     
-        return 1;
+        return 2;
       }
 
 
     return (
         <div style = {{"marginTop":"80px"}}>
              <h1>Menu</h1>
-             <ImageList gap={0} rowHeight={350} cols={getGridListCols} style = {{"margin":"auto",
+             {/* <CircularProgress thickness = {2} size = {200} /> */}
+             <TextField type = "text" label="Search for coffee" variant="outlined" 
+             placeholder = "Type in coffee name" value = {search} onChange = {(e)=>setSearch(e.target.value)}
+             style = {{"width":"80%"}}/>
+             <ImageList gap={0} rowHeight={"auto"} cols={getGridListCols } style = {{"margin":"auto",
             "justifyContent":"center"}}>
              {
-                 items.map((item)=>{
+                 items.filter((item=> (item.name.toLowerCase().includes(search.toLowerCase())))).map((item)=>{
                      console.log(item)
                      
                      return (

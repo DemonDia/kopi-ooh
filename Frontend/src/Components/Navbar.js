@@ -28,7 +28,7 @@ function Navbar(props) {
     return (
         <Box sx={{ flexGrow: 1 }}>
          
-        <AppBar position="fixed">
+        <AppBar position="fixed" style = {{"backgroundColor":"#631F1F"}}>
           <Toolbar>
             {isMobile?
             <IconButton
@@ -47,15 +47,16 @@ function Navbar(props) {
             </Typography>
 
             {isMobile?
-              <Drawer open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} >
-              <List>
+              <Drawer open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} 
+              >
+              <List style = {{"width":"300px","color":"white","backgroundColor":"#5C3131"}}  > 
 
     
-                <ListItem button>
+                <ListItem button style = {{"width":"300px"}} >
                 <Link href="/menu" color="inherit">Menu</Link>
                 </ListItem>
     
-                <ListItem button>
+                <ListItem button  style = {{"width":"300px"}}>
                 <Link href="/cart" color="inherit">Cart</Link>
                 </ListItem>
 

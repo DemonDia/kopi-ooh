@@ -105,7 +105,7 @@ function MenuItem(props) {
 
 
     return (
-        <Card sx={{ width: 345,maxHeight:400 }}>
+        <Card sx={{ width: 350 }}>
           {
             added == false?
             <>
@@ -113,9 +113,11 @@ function MenuItem(props) {
 
             <CardMedia
           component="img"
-          height="140"
+          height="200"
+          width="200"
           image= {url}
           alt= {props.item.name}
+          // style = {{"margin":"auto"}}
         />
         <CardContent>
           <Typography gutterBottom variant="h6" component="div">
@@ -145,6 +147,7 @@ function MenuItem(props) {
         </CardActions>
         {/* {qty} */}
         <Button
+        style = {{"backgroundColor":"#7C2222","color":"white","marginBottom":10,"marginTop":10}}
          onClick = {handleSubmit}
          >
           Add Cart

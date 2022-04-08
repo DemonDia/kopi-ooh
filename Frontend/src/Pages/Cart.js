@@ -13,7 +13,6 @@ import TableHead from '@mui/material/TableHead';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 
-
 function Cart(props) {
     const {cart,setCart,fetchData,getCheckOutStatus} = useGlobalContext()
     useEffect(()=>{
@@ -89,9 +88,11 @@ function Cart(props) {
             </TableContainer>
             <div className = "btnGrp" style = {{"display":"grid","width":"80%","margin":"auto",
         "marginTop":30}} >
-                <Button variant="contained" href = "/checkout">Checkout</Button>
-                <Button variant="outlined" href = "/menu">Back to menu</Button>
+                <Button variant="contained" href = "/checkout"
+                 style = {{"backgroundColor":"#620B0B","color":"white","margin":"10px"}} >Checkout</Button>
+                <Button variant="outlined" style = {{"backgroundColor":"#5C3131","color":"white","margin":"10px"}} href = "/menu">Back to menu</Button>
                 <Button variant="outlined"
+                style = {{"backgroundColor":"#5C3131","color":"white","margin":"10px"}}
                 onClick = {emptyCart}
                 >Empty cart</Button>
                 

@@ -4,6 +4,8 @@ import {useParams} from "react-router-dom"
 import { tableDb } from "../firebase-config";
 import { ref, child, get, update } from "firebase/database";
 
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 function Scan(props) {
     const {tableNum} = useParams()
@@ -69,7 +71,9 @@ function Scan(props) {
     return (
         <div style = {{"marginTop":"80px"}}>
             <h1>Scan</h1>
-            {table.tableId}
+            <CircularProgress thickness = {2} size = {200} color = {"error"}/>
+            <h3>Loading</h3>
+            {/* {table.tableId} */}
         </div>
     );
 }

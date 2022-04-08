@@ -64,9 +64,9 @@ function CartItem(props) {
             <TableCell align="left">{props.item.name}</TableCell>
             <TableCell align="center">
             <ButtonGroup variant="outlined" aria-label="outlined button group">
-                <Button onClick = {dec}>-</Button>
-                <Button disabled> {qty}</Button>
-                <Button onClick = {inc} >+</Button>
+                <Button onClick = {dec} style = {{"backgroundColor":"#620B0B","color":"white"}}>-</Button>
+                <Button disabled style = {{"color":"black"}}> {qty}</Button>
+                <Button onClick = {inc}style = {{"backgroundColor":"#620B0B","color":"white"}}>+</Button>
             </ButtonGroup>
                 
                 

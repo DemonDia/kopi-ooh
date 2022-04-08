@@ -13,13 +13,19 @@ import TableHead from '@mui/material/TableHead';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 
+
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+
 import { FormLabel } from '@mui/material';
 import MuiPhoneNumber from 'material-ui-phone-number';
 
 
 function Checkout(props) {
 
-    const {cart,phoneNo,setPhoneNo,fetchData,setCheckedOut,checkedOut} = useGlobalContext()
+    const {cart,phoneNo,setPhoneNo,fetchData,checkedOut} = useGlobalContext()
+    const [error,checkForError] = useState(false)
+    const [success,checkForSuccess] = useState(false)
     useEffect(()=>{
         if(localStorage.getItem("tableNum") == null){
             window.location.href = '/';
@@ -39,6 +45,14 @@ function Checkout(props) {
         setPhoneNo(value);
      }
 
+     const haveError = () =>{
+            checkForError(false)
+            
+         
+     } 
+
+ 
+
     const placeOrder = () =>{
         // setPhoneNo(phoneNo.replace(/-/g, ""));
         let formattedPhoneNum = phoneNo.replace(/-/g, "");
@@ -50,10 +64,13 @@ function Checkout(props) {
         // console.log('valid',validatePhoneNo(formattedPhoneNum))
         const valid = validatePhoneNo(formattedPhoneNum)
         if(valid == true){
+            checkForSuccess(true)
 
             console.log("Sent to twilio")
             localStorage.setItem("checkedOut",true)
             localStorage.setItem("phoneNo",formattedPhoneNum)
+            checkForError(false)
+
             window.location.href = '/exit';
 
 
@@ -61,6 +78,9 @@ function Checkout(props) {
             // window.location.href = '/exit';
 
         }else{
+            checkForError(true)
+            checkForSuccess(false)
+            // haveError();
             console.log("oh no")
             //retype
         }
@@ -78,7 +98,7 @@ function Checkout(props) {
 {
     cart.length > 0?
 
-           <><h1>Cart</h1>
+           <><h1>Checkout</h1>
 
             <TableContainer component={Paper}>
                 <Table aria-label="simple table">
@@ -119,14 +139,24 @@ function Checkout(props) {
                     </TableBody>
                 </Table>
             </TableContainer>
+
+            {error?<><Alert severity = {"error"}  style = {{"justifyContent": "center"}} >
+                    Checkout unsuccessful. Please use a valid phone number
+                </Alert></>:<></>}
+
+            {success?<><Alert severity = {"success"}  style = {{"justifyContent": "center"}} >
+                Checkout successful.
+            </Alert></>:<></>}
+
+
             <div className = "btnGrp" style = {{"display":"grid","width":"80%","margin":"auto",
         "marginTop":30}} >
             <FormLabel>Phone number:</FormLabel>
             <MuiPhoneNumber defaultCountry={'sg'} onChange={handleOnChange}
             countryCodeEditable = {false}
             onlyCountries = {["sg"]}/>
-                <Button variant="contained" onClick = {placeOrder} >Place order</Button>
-                <Button variant="outlined" href = "/cart">Cancel</Button>
+                <Button variant="contained" onClick = {placeOrder}  style = {{"backgroundColor":"#620B0B","color":"white","margin":"10px"}} >Place order</Button>
+                <Button variant="outlined" href = "/cart" style = {{"backgroundColor":"#5C3131","color":"white","margin":"10px"}} >Cancel</Button>
                                 
             </div>
             </> :
