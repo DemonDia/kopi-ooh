@@ -5,6 +5,7 @@ function Error(props) {
     return (
         <div style = {{"marginTop":80}}>
              <h1>Page not found. Please try again</h1>
+             <h2>You can perhaps scan a QR code?</h2>
         </div>
     );
 }

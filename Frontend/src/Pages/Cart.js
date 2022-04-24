@@ -70,7 +70,7 @@ function Cart(props) {
                         })
                         }
                         <TableRow>
-                            <TableCell align="center" colSpan={2}>Total cost</TableCell>
+                            <TableCell align="center" colSpan={2}>Raw cost</TableCell>
                             <TableCell align="center">${totalCost.toFixed(2)}</TableCell>
                         </TableRow>
 
