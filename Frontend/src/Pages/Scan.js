@@ -10,7 +10,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 function Scan(props) {
     const {tableNum} = useParams()
     const [table,takeTable] = useState([]) //of table details
-    // const [obtainedTable,setObtainedTable] = useState(false)
+    const [obtainedTable,setObtainedTable] = useState(false)
     useEffect(()=>{
         console.log(tableNum)
         // check if user has tableNo
@@ -22,35 +22,22 @@ function Scan(props) {
             const dbRef = ref(tableDb)
             get(child(dbRef, `tables/${tableNum}`)).then((snapshot) => {
                 if (snapshot.exists()) {
-                    // dine in
-                    if(snapshot.val().tableId > 0){
-
-                        console.log(snapshot.val())
-                        if(snapshot.val().available == true){
-                            const updates = {}
-                            updates[`tables/${tableNum}/available`] = false
-                            update(dbRef, updates);
-                            localStorage.setItem("tableNum",tableNum)
-                            window.location.href = '/menu';
                 
-                        }
-                        else{
-                            console.log("noo")
-                            window.location.href = '/';
-                        }
-                        
-                        takeTable(snapshot.val())
-
-                    }
-                    // takeaway
-                    else{
+                    console.log(snapshot.val())
+                    if(snapshot.val().available == true){
+                        const updates = {}
+                        updates[`tables/${tableNum}/available`] = false
+                        update(dbRef, updates);
                         localStorage.setItem("tableNum",tableNum)
                         window.location.href = '/menu';
-
-
+            
                     }
-                
-
+                    else{
+                        console.log("noo")
+                        window.location.href = '/';
+                    }
+                    
+                    takeTable(snapshot.val())
 
                 } else {
                    console.log("not found")

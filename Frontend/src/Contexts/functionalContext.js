@@ -27,14 +27,7 @@ const AppProvider = ({children})=>{
             return []
         }
     }
-    const toTitleCase = (str) => {
-        return str.replace(
-          /\w\S*/g,
-          function (txt) {
-            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-          }
-        );
-      }
+
     const getCheckOutStatus = () =>{
         let checkedOutStatus =  localStorage.getItem("checkedOut")
         console.log('checkedOutStatus',checkedOutStatus)
@@ -56,18 +49,7 @@ const AppProvider = ({children})=>{
 
     }
 
-    const modalStyle = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: "60%",
-        backgroundColor: 'white',
-        // border: '2px solid #000',
-        display:"grid",
-        boxShadow: 24,
-        p: 4,
-      };
+    
     
     // useEffect(()=>{
     //     console.log("set cart",cart)
@@ -88,8 +70,7 @@ const AppProvider = ({children})=>{
             search,setSearch,phoneNo,setPhoneNo,tableNo,setTableNo,
             fetchData,
             checkedOut,setCheckedOut,
-            getCheckOutStatus,toTitleCase,
-            modalStyle
+            getCheckOutStatus
 
         }}>{children}
         </AppContext.Provider>
