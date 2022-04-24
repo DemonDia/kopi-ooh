@@ -4,12 +4,11 @@ var bodyParser = require('body-parser');
 
 const app = express()
 const PORT = process.env.PORT || 8000
-var sid = "AC2c988b6e074d11552f8d3407dcd0f348"
-var auth_token = "22835c6916b5dc43942c04e88b39c265"
+var sid = "sid"
+var auth_token = "auth_token"
 var twilio = require("twilio")(sid,auth_token)
 
 app.use(cors())
-
 
 
 
