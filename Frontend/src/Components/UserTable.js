@@ -13,9 +13,9 @@ import { Box } from '@mui/system';
 import { Typography } from '@mui/material';
 import { InputAdornment } from '@mui/material';
 import { auth,db } from '../firebase-config';
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth";
 import {useGlobalContext} from "../Contexts/functionalContext"
-import { collection,getDocs,setDoc,doc } from "firebase/firestore";
+import { collection,getDocs,setDoc,doc,onSnapshot } from "firebase/firestore";
 
 
 import UserTableRow from './UserTableRow';
@@ -73,6 +73,7 @@ function UserTable(props) {
                 name:fullName,
                 email: formattedEmail,
                 user_type:"staff"
+                
             };
             createUserRecord(user.uid,docData)
             // setDoc(doc(db, "users", user.uid), docData);
@@ -81,6 +82,23 @@ function UserTable(props) {
             setFname("")
             setLname("")
             setEmail("")
+            signInWithEmailAndPassword(auth, "owner@kopioh.com", "Owner123")
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                window.location.href = '/admin/home';
+                console.log("done")
+                // ...
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode)
+                console.log(errorMessage)
+
+            });
+        
+
             getAllStaff()
 
         })
@@ -92,8 +110,20 @@ function UserTable(props) {
     }
 
     useEffect(()=>{
-        getAllStaff()
-    },[])
+        const unsubscribe =  onSnapshot(staffRef, snapshot =>{
+
+            getAllStaff()
+            // getAllItems()
+ 
+        })
+        return ()=>{
+            console.log("unsubscribed")
+            unsubscribe()
+            
+            
+        }
+     },[])
+    
     const style = {
         position: 'absolute',
         top: '50%',

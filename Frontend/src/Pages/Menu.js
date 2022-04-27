@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import { db } from "../firebase-config";
-import { collection,getDocs } from "firebase/firestore";
+import { collection,getDocs, onSnapshot } from "firebase/firestore";
 import MenuItem from "../Components/MenuItem"
 import  { isWidthUp } from '@material-ui/core/withWidth';
 import { ImageListItem,ImageList } from '@material-ui/core';
@@ -20,20 +20,37 @@ function Menu(props) {
       }
       else{
         fetchData()
-        const getItems = async ()=>{
-            const data = await getDocs(itemsCollectionRef)
-            console.log(data)
-            setItems(data.docs.map((doc)=> ({...doc.data(),id:doc.id})))
-            console.log(items)
-        
-        }
-        getItems()
-        console.log(items)
+
+
+        // console.log(items)
 
       }
 
     },[])
+    const getItems = async ()=>{
+           
+      const data = await getDocs(itemsCollectionRef)
+      // console.log(data.docs)
+      const arr = data.docs.map((doc)=> ({...doc.data(),id:doc.id}))
+      console.log("a",arr)
+      setItems(arr)
+      // console.log(staff)
+  
+  }
+    useEffect(()=>{
+      const unsubscribe =  onSnapshot(itemsCollectionRef, snapshot =>{
 
+        getItems()
+          // getAllItems()
+
+      })
+      return ()=>{
+          console.log("unsubscribed")
+          unsubscribe()
+          
+          
+      }
+   },[])
 
 
     const getGridListCols = () => {

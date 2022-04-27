@@ -13,7 +13,7 @@ import { Box } from '@mui/system';
 import { Typography } from '@mui/material';
 import { InputAdornment } from '@mui/material';
 import { Input } from '@mui/material';
-import { collection,getDocs,setDoc,doc, addDoc} from "firebase/firestore";
+import { collection,getDocs,setDoc,doc, addDoc,onSnapshot} from "firebase/firestore";
 
 
 import { ref ,uploadBytesResumable,getDownloadURL, getStorage } from 'firebase/storage';
@@ -120,6 +120,24 @@ const ItemTable = () => {
         }
     },
     [image])
+
+    useEffect(()=>{
+        const unsubscribe =  onSnapshot(itemRef, snapshot =>{
+  
+            getAllItems()
+            // getAllItems()
+ 
+        })
+        return ()=>{
+            console.log("unsubscribed")
+            unsubscribe()
+            
+            
+        }
+     },[])
+
+
+
     // useEffect(()=>{
     //     getAllItems()
     // },[getDocs(itemRef)])
